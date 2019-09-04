@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.appinfo.App_infoMapper">
+	<!--  -->
+	<select id="getAppinfo" resultType="App_info">
+		select i.*,(select categoryName from app_category where
+		categoryLevel1=id) as categoryLevel1Name,
+		(select categoryName from app_category where categoryLevel2=id) as
+		categoryLevel2Name,
+		(select categoryName from app_category where categoryLevel3=id) as
+		categoryLevel3Name,
+		(select versionNo from app_version where versionId = id) as versionNo,
+		(select valueName from data_dictionary where status = valueId and
+		typeCode = 'APP_STATUS') as statusName,
+		(select valueName from data_dictionary where typeCode = 'APP_FLATFORM' and
+		flatformId = valueId) as flatformName
+		from app_info i
+		where 1=1
+		<if test="querySoftwareName != null and querySoftwareName!=''">
+			and softwareName like CONCAT
+			('%',#{querySoftwareName},'%')
+		</if>
+		<if test="queryStatus != 0 and queryStatus != null">
+			and status = #{queryStatus}
+		</if>
+		<if test="queryFlatformId != 0 and queryFlatformId != null">
+			and flatformId = #{queryFlatformId}
+		</if>
+		<if test="queryCategoryLevel1 != 0 and queryCategoryLevel1 != null">
+			and categoryLevel1 = #{queryCategoryLevel1}
+		</if>
+		<if test="queryCategoryLevel2 != 0 and queryCategoryLevel2 != null">
+			and categoryLevel2 = #{queryCategoryLevel2}
+		</if>
+		<if test="queryCategoryLevel3 != 0 and queryCategoryLevel3 != null">
+			and categoryLevel3 = #{queryCategoryLevel3}
+		</if>
+		limit #{currentPageNo},#{pageSize}
+	</select>
+	
+	<!-- 获得条件后的总查询行数 -->
+	<select id="getCount" resultType="int">
+		select count(*) from App_info where 1=1
+		<if test="querySoftwareName != null and querySoftwareName !=''">
+			and softwareName like CONCAT
+			('%',#{querySoftwareName},'%')
+		</if>
+		<if test="queryStatus != 0 and queryStatus != null">
+			and status = #{queryStatus}
+		</if>
+		<if test="queryFlatformId != 0 and queryFlatformId != null">
+			and flatformId = #{querySoftwareName}
+		</if>
+		<if test="queryCategoryLevel1 != 0 and queryCategoryLevel1 != null">
+			and categoryLevel1 = #{queryCategoryLevel1}
+		</if>
+		<if test="queryCategoryLevel2 != 0 and queryCategoryLevel2 != null">
+			and categoryLevel2 = #{queryCategoryLevel2}
+		</if>
+		<if test="queryCategoryLevel3 != 0 and queryCategoryLevel3 != null">
+			and categoryLevel3 = #{queryCategoryLevel3}
+		</if>
+	</select>
+	<select id="getStatus" resultType="Data_dictionary">
+		select * from data_dictionary where typeCode='APP_STATUS' 
+	</select>
+	<select id="getFlat" resultType="Data_dictionary">
+		select * from data_dictionary where typeCode='APP_FLATFORM' 
+	</select>
+</mapper>
