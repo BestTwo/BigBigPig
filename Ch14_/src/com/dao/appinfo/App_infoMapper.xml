@@ -63,10 +63,82 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and categoryLevel3 = #{queryCategoryLevel3}
 		</if>
 	</select>
+	
+	<!-- 获得所有状态信息 -->
 	<select id="getStatus" resultType="Data_dictionary">
 		select * from data_dictionary where typeCode='APP_STATUS' 
 	</select>
+	
+	<!-- 获得所有供应商 -->
 	<select id="getFlat" resultType="Data_dictionary">
 		select * from data_dictionary where typeCode='APP_FLATFORM' 
 	</select>
+	
+	<!-- 根据APKName名查询App信息 -->
+	<select id="getAppByAPKName" resultType="App_info">
+		select * from app_info where APKName = #{APKName}
+	</select>
+	
+	<!-- 添加app -->
+	<insert id="addApp" parameterType="app_info">
+		insert into app_info (softwareName,APKName,supportROM,interfaceLanguage,softwareSize,
+							  downloads,flatformId,categoryLevel1,categoryLevel2,categoryLevel3,
+							  status,appInfo,logoPicPath,logoLocPath,createdBy,creationDate)
+					  values (#{softwareName},#{APKName},#{supportROM},#{interfaceLanguage}
+							  ,#{softwareSize},#{downloads},#{flatformId},#{categoryLevel1}
+							  ,#{categoryLevel2},#{categoryLevel3},#{status},#{appInfo},
+							  #{logoPicPath},#{logoLocPath},#{createdBy},#{creationDate})
+	</insert>
+	
+	<!-- 根据id查询app信息 -->
+	<select id="getAppById" resultType="App_info">
+		select i.*,(select categoryName from app_category where
+		categoryLevel1=id) as categoryLevel1Name,
+		(select categoryName from app_category where categoryLevel2=id) as
+		categoryLevel2Name,
+		(select categoryName from app_category where categoryLevel3=id) as
+		categoryLevel3Name,
+		(select versionNo from app_version where versionId = id) as versionNo,
+		(select valueName from data_dictionary where status = valueId and
+		typeCode = 'APP_STATUS') as statusName,
+		(select valueName from data_dictionary where typeCode = 'APP_FLATFORM' and
+		flatformId = valueId) as flatformName
+		from app_info i
+		 where id = #{id}
+	</select>
+	
+	<!-- 修改app信息 -->
+	<update id="modifyApp" parameterType="App_info">
+		update app_info set softwareName=#{softwareName},supportROM=#{supportROM},
+							interfaceLanguage=#{interfaceLanguage},softwareSize=#{softwareSize},
+							downloads=#{downloads},flatformId=#{flatformId},categoryLevel1=#{categoryLevel1},categoryLevel2=#{categoryLevel2},
+							categoryLevel3=#{categoryLevel3},appInfo=#{appInfo},
+							modifyBy=#{modifyBy},modifyDate=#{modifyDate},logoPicPath=#{logoPicPath},
+							logoLocPath=#{logoLocPath}
+							where id = #{id}
+	</update>
+	
+	<!-- 修改存放路径为空(删除路径) -->
+	<update id="delFile">
+		update app_info set logoPicPath = null,logoLocPath=null where id=#{id}
+	</update>
+	
+	<!-- 修改审核未通过为待审核 -->
+	<update id="modifyStatus">
+		update app_info set status = 1 where id = #{id}
+	</update>
+	<!-- 修改app的版本信息为最新版本 -->
+	<update id="modifyVersion">
+		update app_info set versionId = (select id from app_version where appId=#{appId} order by creationDate desc limit 1)
+		where id = #{appId} 
+	</update>
+	<!-- 删除对应idApp信息 -->
+	<delete id="delApp">
+		delete from app_info where id=#{id}
+	</delete>
+	
+	<!-- 上架和下架 -->
+	<update id="modifyStatus1">
+		update app_info set status = #{status} where  id= #{id}
+	</update>
 </mapper>

@@ -103,8 +103,9 @@ $(document).on("click",".saleSwichOpen,.saleSwichClose",function(){
 
 var saleSwitchAjax = function(appId,obj){
 	$.ajax({
-		type:"PUT",
-		url:appId+"/sale.json",
+		type:"GET",
+		url:"sale",
+		data:{id:appId},
 		dataType:"json",
 		success:function(data){
 			/*
@@ -168,6 +169,7 @@ var saleSwitchAjax = function(appId,obj){
 		}
 	});
 };
+
 
 
 

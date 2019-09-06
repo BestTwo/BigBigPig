@@ -31,4 +31,31 @@ public interface App_infoService {
 		
 		//查询所有平台
 		public List<Data_dictionary> getFlat();
+		
+		//根据APK名称查询app信息
+		public App_info getAppByAPKName(@Param("APKName")String APKName);	
+		
+		//添加App信息
+		public int addApp(App_info app);
+		
+		//根据id查询所有app信息
+		public App_info getAppById(@Param("id")Integer id);
+		
+		//根据id修改app信息
+		public int modifyApp(App_info app);
+		
+		//根据id清除app logo
+		public int delFile(@Param("id")Integer id);
+		
+		//根据id修改status状态
+		public int modifyStatus(@Param("id")Integer id);
+		
+		//修改软件最新版本号
+		public int modifyVersion(@Param("appId")Integer appId);
+		
+		//删除对应idapp信息
+		public int delApp(@Param("id")Integer Id);
+		
+		//根据id修改状态
+		public int modifyStatus1(@Param("id")Integer id,@Param("status")Integer status);
 }

@@ -15,12 +15,12 @@ public class App_infoServiceImpl implements App_infoService{
 
 	public App_infoMapper getApp_infoMapper() {
 		return app_infoMapper;
-	}
+	} 
 
 	public void setApp_infoMapper(App_infoMapper app_infoMapper) {
 		this.app_infoMapper = app_infoMapper;
 	}
-
+   
 	@Override
 	public int getCount(String querySoftwareName, Integer queryStatus, Integer queryFlatformId,
 			Integer queryCategoryLevel1, Integer queryCategoryLevel2, Integer queryCategoryLevel3) {
@@ -42,6 +42,51 @@ public class App_infoServiceImpl implements App_infoService{
 	@Override
 	public List<Data_dictionary> getFlat() {
 		return app_infoMapper.getFlat(); 
+	}
+
+	@Override
+	public App_info getAppByAPKName(String APKName) {
+		return app_infoMapper.getAppByAPKName(APKName);
+	}
+
+	@Override
+	public int addApp(App_info app) {
+		return app_infoMapper.addApp(app);
+	}
+
+	@Override
+	public App_info getAppById(Integer id) {
+		return app_infoMapper.getAppById(id);
+	}
+
+	@Override
+	public int modifyApp(App_info app) {
+		return app_infoMapper.modifyApp(app);
+	}
+
+	@Override
+	public int delFile(Integer id) {
+		return app_infoMapper.delFile(id);
+	}
+
+	@Override
+	public int modifyStatus(Integer id) {
+		return app_infoMapper.modifyStatus(id);
+	}
+
+	@Override
+	public int modifyVersion(Integer appId) {
+		return app_infoMapper.modifyVersion(appId);
+	}
+
+	@Override
+	public int delApp(Integer Id) {
+		return app_infoMapper.delApp(Id);
+	}
+
+	@Override
+	public int modifyStatus1(Integer id, Integer status) {
+		return app_infoMapper.modifyStatus1(id, status);
 	}
 	
 

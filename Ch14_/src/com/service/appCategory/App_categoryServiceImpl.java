@@ -18,12 +18,12 @@ public class App_categoryServiceImpl implements App_categoryService{
 	public void setApp_categoryMapper(App_categoryMapper app_categoryMapper) {
 		this.app_categoryMapper = app_categoryMapper;
 	}
-
+  
 	@Override
 	public List<App_category> getAppCategoryList1() {
 		return app_categoryMapper.getAppCategoryList1();
 	}
-
+ 
 	@Override
 	public List<App_category> getAppCategoryListAll(Integer cate1) {
 		return app_categoryMapper.getAppCategoryListAll(cate1); 
