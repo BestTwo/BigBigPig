@@ -29,7 +29,7 @@ $(function(){
 	var id = $("#id").val();
 	var apkFileName = $("#apkFileName").val();
 	if(downloadLink == null || downloadLink == "" ){
-		$("#uploadfile").show();
+		$("#uploadfile").show();6
 	}else{
 		$("#apkFile").append("<p>"+apkFileName+
 							"&nbsp;&nbsp;<a href=\""+downloadLink+"?m="+Math.random()+"\" >下载</a> &nbsp;&nbsp;" +

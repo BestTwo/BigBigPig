@@ -11,12 +11,11 @@ import com.pojo.Data_dictionary;
 @Service("App_infoService")
 public class App_infoServiceImpl implements App_infoService{
 	@Autowired
-	private App_infoMapper app_infoMapper;
-
+	private App_infoMapper app_infoMapper; 
 	public App_infoMapper getApp_infoMapper() {
 		return app_infoMapper;
-	} 
-
+	}  
+ 
 	public void setApp_infoMapper(App_infoMapper app_infoMapper) {
 		this.app_infoMapper = app_infoMapper;
 	}

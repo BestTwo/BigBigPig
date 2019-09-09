@@ -21,12 +21,12 @@ import com.service.appversion.App_versionService;
 
 @Controller
 @RequestMapping("/dev")
-public class DevController { 
-	 
+public class DevController {  
+	  
 	Logger logger = Logger.getLogger(DevController.class);
 	@Autowired
 	public DevService devService;
-	
+	 
 	@Autowired
 	public App_infoService app_infoService;
 	

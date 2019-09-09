@@ -174,7 +174,6 @@ public class App_infoController {
 	@RequestMapping(value = "/flatform/app/categorylevellist", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public Object categorylevellist1(@RequestParam(value = "pid") String pid) {
-		logger.info(pid + "=========================");
 		List<App_category> cate2 = app_categoryService
 				.getAppCategoryListAll(pid == null || pid == "" ? null : Integer.parseInt(pid));
 		return JSONArray.toJSONString(cate2);

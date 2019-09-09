@@ -130,7 +130,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 修改app的版本信息为最新版本 -->
 	<update id="modifyVersion">
 		update app_info set versionId = (select id from app_version where appId=#{appId} order by creationDate desc limit 1)
-		where id = #{appId} 
+		where id = #{appId}
 	</update>
 	<!-- 删除对应idApp信息 -->
 	<delete id="delApp">
